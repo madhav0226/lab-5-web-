@@ -9,7 +9,7 @@
 
 :root {
     --bg-overlay: rgba(10, 15, 29, 0.82);
-    --card-bg: rgba(17, 24, 39, 0.72);
+    --card-bg: rgba(17, 24, 39, 0.75);
     --card-border: rgba(255, 255, 255, 0.12);
     --card-hover-border: rgba(255, 255, 255, 0.28);
     --text-primary: #f8fafc;
@@ -47,7 +47,7 @@ body {
     position: sticky;
     top: 0;
     z-index: 1000;
-    background: rgba(15, 23, 42, 0.92);
+    background: rgba(15, 23, 42, 0.94);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -146,7 +146,7 @@ body {
    ========================================================================== */
 .college-header {
     text-align: center;
-    padding: 44px 28px;
+    padding: 46px 32px;
     margin-bottom: 40px;
     background: var(--card-bg);
     backdrop-filter: blur(16px);
@@ -169,49 +169,52 @@ body {
     background: linear-gradient(90deg, transparent, #38bdf8, #818cf8, transparent);
 }
 
-.college-badge {
+.about-hero-badge {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: rgba(56, 189, 248, 0.1);
+    background: rgba(56, 189, 248, 0.12);
     color: #38bdf8;
-    border: 1px solid rgba(56, 189, 248, 0.25);
-    padding: 6px 14px;
+    border: 1px solid rgba(56, 189, 248, 0.3);
+    padding: 6px 16px;
     border-radius: 9999px;
-    font-size: 0.75rem;
+    font-size: 0.82rem;
     font-weight: 700;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
     margin-bottom: 18px;
 }
 
-.college-badge svg {
+.about-hero-badge svg {
     color: #38bdf8;
 }
 
-/* College Name: Large, bold, majestic */
+/* College Name: Large, bold, distinctive style */
 .college-name {
     font-family: 'Outfit', sans-serif;
-    font-size: clamp(2.2rem, 4.8vw, 3.6rem);
+    font-size: clamp(2rem, 4.2vw, 3.2rem);
     font-weight: 800;
-    line-height: 1.15;
-    letter-spacing: -0.02em;
-    background: linear-gradient(135deg, #ffffff 30%, #cbd5e1 70%, #94a3b8 100%);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    background: linear-gradient(135deg, #ffffff 20%, #e2e8f0 60%, #94a3b8 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    margin-bottom: 14px;
+    margin-bottom: 16px;
     text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
-/* College Address: Smaller, subtle size */
+/* College Address: Smaller size */
 .college-address {
-    font-size: clamp(0.95rem, 1.8vw, 1.1rem);
+    font-size: clamp(0.95rem, 1.8vw, 1.12rem);
     color: var(--text-secondary);
     font-weight: 400;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
-    margin-bottom: 22px;
+    margin-bottom: 24px;
+    line-height: 1.5;
 }
 
 .college-address svg {
@@ -229,7 +232,7 @@ body {
 .header-tags .tag {
     font-size: 0.8rem;
     font-weight: 500;
-    padding: 4px 12px;
+    padding: 5px 14px;
     border-radius: 6px;
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.08);
@@ -245,7 +248,7 @@ body {
 
 .section-header {
     text-align: center;
-    margin-bottom: 32px;
+    margin-bottom: 36px;
 }
 
 .section-subtitle {
@@ -269,7 +272,7 @@ body {
 .section-desc {
     color: var(--text-secondary);
     font-size: 1rem;
-    max-width: 650px;
+    max-width: 680px;
     margin: 0 auto;
 }
 
@@ -278,8 +281,8 @@ body {
    ========================================================================== */
 .courses-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
-    gap: 22px;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 24px;
 }
 
 .course-card {
@@ -288,7 +291,7 @@ body {
     -webkit-backdrop-filter: blur(16px);
     border-radius: var(--border-radius);
     border: 1px solid var(--card-border);
-    padding: 24px;
+    padding: 26px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -310,7 +313,7 @@ body {
     left: 0;
     width: 4px;
     height: 100%;
-    opacity: 0.8;
+    opacity: 0.85;
     transition: width 0.3s ease;
 }
 
@@ -344,9 +347,9 @@ body {
 
 .course-desc {
     color: var(--text-secondary);
-    font-size: 0.9rem;
-    line-height: 1.55;
-    margin-bottom: 20px;
+    font-size: 0.92rem;
+    line-height: 1.6;
+    margin-bottom: 22px;
     flex-grow: 1;
 }
 
@@ -375,113 +378,84 @@ body {
    Individual Course Styles (Unique Color, Style, Typeface)
    ========================================================================== */
 
-/* 1. Artificial Intelligence: Fira Code (Monospace), Cyan, Tech Glow */
-.course-cs::after { background: #00f2fe; }
-.course-cs:hover { box-shadow: 0 16px 32px -10px rgba(0, 242, 254, 0.25); }
-.title-cs {
+/* 1. B.Tech Computer Science & Engineering: Fira Code (Monospace), Cyan Glow */
+.course-cse::after { background: #00f2fe; }
+.course-cse:hover { box-shadow: 0 16px 32px -10px rgba(0, 242, 254, 0.25); }
+.title-cse {
     font-family: 'Fira Code', monospace;
     font-size: 1.25rem;
     font-weight: 700;
     color: #00f2fe;
     letter-spacing: -0.03em;
     margin-bottom: 12px;
-    text-shadow: 0 0 12px rgba(0, 242, 254, 0.4);
+    text-shadow: 0 0 12px rgba(0, 242, 254, 0.35);
     line-height: 1.35;
 }
 
-/* 2. Cyber Security: Space Grotesk, Electric Amber, Geometric Bold */
-.course-cyber::after { background: #fb8500; }
-.course-cyber:hover { box-shadow: 0 16px 32px -10px rgba(251, 133, 0, 0.25); }
-.title-cyber {
+/* 2. B.Tech Artificial Intelligence & Machine Learning: Space Grotesk, Electric Purple */
+.course-aiml::after { background: #a855f7; }
+.course-aiml:hover { box-shadow: 0 16px 32px -10px rgba(168, 85, 247, 0.25); }
+.title-aiml {
     font-family: 'Space Grotesk', sans-serif;
-    font-size: 1.3rem;
+    font-size: 1.28rem;
     font-weight: 700;
-    color: #ffb703;
-    text-transform: capitalize;
+    color: #c084fc;
     letter-spacing: -0.02em;
     margin-bottom: 12px;
     line-height: 1.3;
 }
 
-/* 3. Robotics & Mechatronics: Syne, Neon Coral, Heavy Display */
-.course-robotics::after { background: #ff0054; }
-.course-robotics:hover { box-shadow: 0 16px 32px -10px rgba(255, 0, 84, 0.25); }
-.title-robotics {
-    font-family: 'Syne', sans-serif;
-    font-size: 1.35rem;
-    font-weight: 800;
-    color: #ff4d6d;
-    letter-spacing: -0.01em;
-    margin-bottom: 12px;
-    line-height: 1.25;
-}
-
-/* 4. Biomedical Science: Merriweather, Emerald Green, Elegant Italic Serif */
-.course-biomed::after { background: #10b981; }
-.course-biomed:hover { box-shadow: 0 16px 32px -10px rgba(16, 185, 129, 0.25); }
-.title-biomed {
-    font-family: 'Merriweather', serif;
-    font-style: italic;
+/* 3. B.Tech Information Science & Engineering: Montserrat, Vibrant Amber */
+.course-ise::after { background: #f59e0b; }
+.course-ise:hover { box-shadow: 0 16px 32px -10px rgba(245, 158, 11, 0.25); }
+.title-ise {
+    font-family: 'Montserrat', sans-serif;
     font-size: 1.22rem;
-    font-weight: 700;
-    color: #34d399;
-    letter-spacing: 0.01em;
-    margin-bottom: 12px;
-    line-height: 1.4;
-}
-
-/* 5. Business Administration: Cinzel, Royal Gold, Classical Uppercase Serif */
-.course-mba::after { background: #ffd166; }
-.course-mba:hover { box-shadow: 0 16px 32px -10px rgba(255, 209, 102, 0.25); }
-.title-mba {
-    font-family: 'Cinzel', serif;
-    font-size: 1.18rem;
     font-weight: 800;
-    color: #facc15;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
+    color: #fbbf24;
+    letter-spacing: 0.01em;
     margin-bottom: 12px;
     line-height: 1.35;
 }
 
-/* 6. Architecture & Urbanism: Playfair Display, Rose Carmine, Editorial Serif */
-.course-arch::after { background: #f43f5e; }
-.course-arch:hover { box-shadow: 0 16px 32px -10px rgba(244, 63, 94, 0.25); }
-.title-arch {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.32rem;
-    font-weight: 700;
-    color: #fb7185;
+/* 4. B.Tech Electronics & Communication Engineering: Syne, Neon Coral Display */
+.course-ece::after { background: #ff0054; }
+.course-ece:hover { box-shadow: 0 16px 32px -10px rgba(255, 0, 84, 0.25); }
+.title-ece {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.28rem;
+    font-weight: 800;
+    color: #ff4d6d;
     letter-spacing: -0.01em;
     margin-bottom: 12px;
     line-height: 1.3;
 }
 
-/* 7. Cloud Computing: Montserrat, Electric Purple, Ultra-Bold Modern */
-.course-cloud::after { background: #a855f7; }
-.course-cloud:hover { box-shadow: 0 16px 32px -10px rgba(168, 85, 247, 0.25); }
-.title-cloud {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1.25rem;
+/* 5. B.Tech Mechanical Engineering: Cinzel, Emerald Green Serif */
+.course-mech::after { background: #10b981; }
+.course-mech:hover { box-shadow: 0 16px 32px -10px rgba(16, 185, 129, 0.25); }
+.title-mech {
+    font-family: 'Cinzel', serif;
+    font-size: 1.18rem;
     font-weight: 800;
-    color: #c084fc;
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
+    color: #34d399;
+    letter-spacing: 0.04em;
     margin-bottom: 12px;
-    line-height: 1.3;
+    line-height: 1.35;
 }
 
-/* 8. Interactive Media: Caveat, Chartreuse Lime, Flowing Script */
-.course-design::after { background: #a3e635; }
-.course-design:hover { box-shadow: 0 16px 32px -10px rgba(163, 230, 53, 0.25); }
-.title-design {
-    font-family: 'Caveat', cursive;
-    font-size: 1.65rem;
+/* 6. B.Tech Civil Engineering: Merriweather, Warm Ochre / Orange Italic Serif */
+.course-civil::after { background: #f97316; }
+.course-civil:hover { box-shadow: 0 16px 32px -10px rgba(249, 115, 22, 0.25); }
+.title-civil {
+    font-family: 'Merriweather', serif;
+    font-style: italic;
+    font-size: 1.22rem;
     font-weight: 700;
-    color: #a3e635;
-    line-height: 1.2;
-    letter-spacing: 0.02em;
-    margin-bottom: 10px;
+    color: #fb923c;
+    letter-spacing: 0.01em;
+    margin-bottom: 12px;
+    line-height: 1.4;
 }
 
 /* ==========================================================================
@@ -534,3 +508,4 @@ body {
         font-size: 0.8rem;
     }
 }
+
