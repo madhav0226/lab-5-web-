@@ -1,0 +1,536 @@
+/* ==========================================================================
+   Global Reset & Variables
+   ========================================================================== */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --bg-overlay: rgba(10, 15, 29, 0.82);
+    --card-bg: rgba(17, 24, 39, 0.72);
+    --card-border: rgba(255, 255, 255, 0.12);
+    --card-hover-border: rgba(255, 255, 255, 0.28);
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    --accent-blue: #38bdf8;
+    --accent-glow: rgba(56, 189, 248, 0.15);
+    --font-base: 'Inter', system-ui, -apple-system, sans-serif;
+    --border-radius: 16px;
+    --transition-smooth: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+body {
+    font-family: var(--font-base);
+    color: var(--text-primary);
+    min-height: 100vh;
+    line-height: 1.6;
+    background-color: #0b0f19;
+    /* Requirement (b): Put the image in the background */
+    background-image: 
+        linear-gradient(180deg, rgba(8, 12, 22, 0.88) 0%, rgba(13, 20, 36, 0.82) 50%, rgba(7, 10, 19, 0.92) 100%),
+        url('campus_bg.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    overflow-x: hidden;
+    padding-bottom: 40px;
+}
+
+/* ==========================================================================
+   Requirement (e): Scrolling Announcement Bar for Exam Dates & Events
+   ========================================================================== */
+.ticker-wrapper {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: rgba(15, 23, 42, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    height: 48px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+}
+
+.ticker-badge {
+    flex-shrink: 0;
+    z-index: 10;
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: #ffffff;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    padding: 0 16px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 4px 0 16px rgba(0, 0, 0, 0.4);
+}
+
+.pulse-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #ffffff;
+    animation: pulse 1.5s infinite ease-in-out;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.4); opacity: 0.5; }
+}
+
+.ticker-track {
+    flex-grow: 1;
+    display: flex;
+    white-space: nowrap;
+    overflow: hidden;
+    mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 1) 4%, rgba(0, 0, 0, 1) 96%, transparent 100%);
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 1) 4%, rgba(0, 0, 1) 96%, transparent 100%);
+}
+
+.ticker-content {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    padding-left: 20px;
+    animation: marqueeScroll 28s linear infinite;
+}
+
+.ticker-track:hover .ticker-content {
+    animation-play-state: paused;
+}
+
+@keyframes marqueeScroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+}
+
+.ticker-item {
+    font-size: 0.88rem;
+    color: #cbd5e1;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.ticker-item .highlight {
+    color: #fde047;
+    font-weight: 600;
+}
+
+.ticker-divider {
+    color: #64748b;
+    font-size: 0.9rem;
+}
+
+/* ==========================================================================
+   Layout Container
+   ========================================================================== */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 32px 24px;
+}
+
+/* ==========================================================================
+   Requirement (c): College Name in Large Text, Address in Smaller Size
+   ========================================================================== */
+.college-header {
+    text-align: center;
+    padding: 44px 28px;
+    margin-bottom: 40px;
+    background: var(--card-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--card-border);
+    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.6);
+    position: relative;
+    overflow: hidden;
+}
+
+.college-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #38bdf8, #818cf8, transparent);
+}
+
+.college-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(56, 189, 248, 0.1);
+    color: #38bdf8;
+    border: 1px solid rgba(56, 189, 248, 0.25);
+    padding: 6px 14px;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    margin-bottom: 18px;
+}
+
+.college-badge svg {
+    color: #38bdf8;
+}
+
+/* College Name: Large, bold, majestic */
+.college-name {
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(2.2rem, 4.8vw, 3.6rem);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, #ffffff 30%, #cbd5e1 70%, #94a3b8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 14px;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* College Address: Smaller, subtle size */
+.college-address {
+    font-size: clamp(0.95rem, 1.8vw, 1.1rem);
+    color: var(--text-secondary);
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 22px;
+}
+
+.college-address svg {
+    color: #f43f5e;
+    flex-shrink: 0;
+}
+
+.header-tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+
+.header-tags .tag {
+    font-size: 0.8rem;
+    font-weight: 500;
+    padding: 4px 12px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #cbd5e1;
+}
+
+/* ==========================================================================
+   Section Intro
+   ========================================================================== */
+.courses-section {
+    margin-bottom: 48px;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.section-subtitle {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: #38bdf8;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 6px;
+}
+
+.section-title {
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(1.8rem, 3.2vw, 2.4rem);
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 8px;
+}
+
+.section-desc {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    max-width: 650px;
+    margin: 0 auto;
+}
+
+/* ==========================================================================
+   Requirement (d): Courses Grid & Different Colors, Styles, Typefaces
+   ========================================================================== */
+.courses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+    gap: 22px;
+}
+
+.course-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--card-border);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: var(--transition-smooth);
+    position: relative;
+    overflow: hidden;
+}
+
+.course-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--card-hover-border);
+    box-shadow: 0 16px 32px -10px rgba(0, 0, 0, 0.6);
+}
+
+.course-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    opacity: 0.8;
+    transition: width 0.3s ease;
+}
+
+.course-card:hover::after {
+    width: 6px;
+}
+
+.course-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.course-badge {
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 3px 8px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.07);
+    color: #e2e8f0;
+}
+
+.course-code {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.course-desc {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.55;
+    margin-bottom: 20px;
+    flex-grow: 1;
+}
+
+.course-footer {
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+    padding-top: 12px;
+}
+
+.font-spec-label {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.font-spec-label code {
+    background: rgba(0, 0, 0, 0.35);
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: #cbd5e1;
+    font-size: 0.7rem;
+}
+
+/* ==========================================================================
+   Individual Course Styles (Unique Color, Style, Typeface)
+   ========================================================================== */
+
+/* 1. Artificial Intelligence: Fira Code (Monospace), Cyan, Tech Glow */
+.course-cs::after { background: #00f2fe; }
+.course-cs:hover { box-shadow: 0 16px 32px -10px rgba(0, 242, 254, 0.25); }
+.title-cs {
+    font-family: 'Fira Code', monospace;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #00f2fe;
+    letter-spacing: -0.03em;
+    margin-bottom: 12px;
+    text-shadow: 0 0 12px rgba(0, 242, 254, 0.4);
+    line-height: 1.35;
+}
+
+/* 2. Cyber Security: Space Grotesk, Electric Amber, Geometric Bold */
+.course-cyber::after { background: #fb8500; }
+.course-cyber:hover { box-shadow: 0 16px 32px -10px rgba(251, 133, 0, 0.25); }
+.title-cyber {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #ffb703;
+    text-transform: capitalize;
+    letter-spacing: -0.02em;
+    margin-bottom: 12px;
+    line-height: 1.3;
+}
+
+/* 3. Robotics & Mechatronics: Syne, Neon Coral, Heavy Display */
+.course-robotics::after { background: #ff0054; }
+.course-robotics:hover { box-shadow: 0 16px 32px -10px rgba(255, 0, 84, 0.25); }
+.title-robotics {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: #ff4d6d;
+    letter-spacing: -0.01em;
+    margin-bottom: 12px;
+    line-height: 1.25;
+}
+
+/* 4. Biomedical Science: Merriweather, Emerald Green, Elegant Italic Serif */
+.course-biomed::after { background: #10b981; }
+.course-biomed:hover { box-shadow: 0 16px 32px -10px rgba(16, 185, 129, 0.25); }
+.title-biomed {
+    font-family: 'Merriweather', serif;
+    font-style: italic;
+    font-size: 1.22rem;
+    font-weight: 700;
+    color: #34d399;
+    letter-spacing: 0.01em;
+    margin-bottom: 12px;
+    line-height: 1.4;
+}
+
+/* 5. Business Administration: Cinzel, Royal Gold, Classical Uppercase Serif */
+.course-mba::after { background: #ffd166; }
+.course-mba:hover { box-shadow: 0 16px 32px -10px rgba(255, 209, 102, 0.25); }
+.title-mba {
+    font-family: 'Cinzel', serif;
+    font-size: 1.18rem;
+    font-weight: 800;
+    color: #facc15;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 12px;
+    line-height: 1.35;
+}
+
+/* 6. Architecture & Urbanism: Playfair Display, Rose Carmine, Editorial Serif */
+.course-arch::after { background: #f43f5e; }
+.course-arch:hover { box-shadow: 0 16px 32px -10px rgba(244, 63, 94, 0.25); }
+.title-arch {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.32rem;
+    font-weight: 700;
+    color: #fb7185;
+    letter-spacing: -0.01em;
+    margin-bottom: 12px;
+    line-height: 1.3;
+}
+
+/* 7. Cloud Computing: Montserrat, Electric Purple, Ultra-Bold Modern */
+.course-cloud::after { background: #a855f7; }
+.course-cloud:hover { box-shadow: 0 16px 32px -10px rgba(168, 85, 247, 0.25); }
+.title-cloud {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #c084fc;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    margin-bottom: 12px;
+    line-height: 1.3;
+}
+
+/* 8. Interactive Media: Caveat, Chartreuse Lime, Flowing Script */
+.course-design::after { background: #a3e635; }
+.course-design:hover { box-shadow: 0 16px 32px -10px rgba(163, 230, 53, 0.25); }
+.title-design {
+    font-family: 'Caveat', cursive;
+    font-size: 1.65rem;
+    font-weight: 700;
+    color: #a3e635;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+    margin-bottom: 10px;
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+.college-footer {
+    text-align: center;
+    padding: 24px;
+    background: var(--card-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--card-border);
+    margin-top: 20px;
+}
+
+.footer-content p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 6px;
+}
+
+.footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+/* ==========================================================================
+   Responsive Adaptations
+   ========================================================================== */
+@media (max-width: 768px) {
+    .container {
+        padding: 16px 12px;
+    }
+    .college-header {
+        padding: 30px 16px;
+    }
+    .courses-grid {
+        grid-template-columns: 1fr;
+    }
+    .ticker-badge {
+        font-size: 0.7rem;
+        padding: 0 10px;
+    }
+    .ticker-item {
+        font-size: 0.8rem;
+    }
+}
